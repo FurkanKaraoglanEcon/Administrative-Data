@@ -27,28 +27,6 @@ Years, input files, variable mappings, encoding and parsing conventions are conf
 | `code/11_checks.do` | Checks output keys and consistency; summarizes linkage |
 | `code/12_smoke_test.do` | Optional synthetic tests of cleaning and selection helpers |
 
-## Preparation rules
-
-- CPFs are standardized as 11-character strings. Linkage requires valid check digits by default. Missing or invalid CPFs remain unlinked.
-- Names are normalized, while raw values are retained. Name, sex and birth-date modes are selected independently using record frequencies. Conflicts, ties and age-derived birth-year approximations are flagged.
-- Repeated CPF registrations within a CadÚnico wave are retained for review and excluded from unique-person attributes; they still contribute to wave membership.
-- The main employment record is selected across all yearly input parts by mean wage, tenure, hours and year-end activity, with deterministic source-row tie breaking. Missing values rank after observed values.
-- Labor outputs include nominal remuneration, hours, tenure, activity and optional employer classifications. Record counts are not assumed to be distinct-job counts. Sums of record mean monthly wages are not annual earnings.
-- Household income and reported size are retained when member records agree. Conflicting values become missing; repeated household income is never summed across members.
-- The linked panel covers eligible CPFs ever observed in the configured CadÚnico waves. Household attributes are attached only to observed contemporaneous waves. Unmatched employment indicators remain missing unless annual RAIS coverage is explicitly confirmed.
-
-## Main outputs
-
-| Dataset | Key |
-|---|---|
-| `population_identity.dta` | CPF |
-| `rais_labor_outcomes_cpf_year.dta` | CPF × year |
-| `cadunico_person_wave.dta` | CPF × wave |
-| `cadunico_household_wave.dta` | Family × wave |
-| `rais_cadunico_person_year.dta` | CPF × year |
-
-Cleaned record files are saved under `intermediate/`, prepared datasets under `output/`, and audits under `diagnostics/`. Logs are saved under `logs/`.
-
 ## Running
 
 Requires Stata 16 or later; no additional packages are used.
